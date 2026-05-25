@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICAR-IARI | Placement Intelligence Dashboard 2026</title>
+    
+    <!-- Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        
+        <!-- Header -->
+        <header class="top-header">
+            <div class="header-brand">
+                <img src="IARI LOGO.gif" alt="ICAR-IARI Logo" style="height: 55px; width: auto; margin-right: 1rem; border-radius: 4px;">
+                <div class="header-titles">
+                    <h1>ICAR-IARI Agricultural Engineering Placement Operations 2026</h1>
+                    <p>Strategic Industry Mapping & Outreach Platform</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-primary" id="btn-add-company" style="background: var(--color-accent); border-color: var(--color-accent);"><i class="ph ph-plus-circle"></i> Add Company</button>
+                <button class="btn btn-secondary" id="btn-export-state"><i class="ph ph-database"></i> Export State</button>
+                <label class="btn btn-secondary" style="cursor: pointer;">
+                    <i class="ph ph-upload"></i> Import State
+                    <input type="file" id="btn-import-state" accept=".json" style="display: none;">
+                </label>
+                <button class="btn btn-primary" id="export-csv"><i class="ph ph-download-simple"></i> Export CSV</button>
+            </div>
+        </header>
+
+        <!-- Main Navigation -->
+        <nav class="main-tabs">
+            <button class="tab-btn active" data-tab="overview"><i class="ph ph-presentation-chart"></i> Intelligence Overview</button>
+            <button class="tab-btn" data-tab="operations"><i class="ph ph-kanban"></i> Outreach Operations</button>
+        </nav>
+
+        <!-- TAB: OVERVIEW -->
+        <div id="tab-overview" class="tab-pane active">
+            <!-- KPI Hero Section -->
+            <section class="kpi-section">
+                <div class="kpi-card">
+                    <div class="kpi-icon"><i class="ph ph-buildings"></i></div>
+                    <div class="kpi-data">
+                        <h3 id="kpi-total-companies">--</h3>
+                        <p>Total Tracked</p>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon"><i class="ph ph-rocket-launch"></i></div>
+                    <div class="kpi-data">
+                        <h3 id="kpi-deeptech">--</h3>
+                        <p>DeepTech Ecosystems</p>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon"><i class="ph ph-robot"></i></div>
+                    <div class="kpi-data">
+                        <h3 id="kpi-ai-robotics">--</h3>
+                        <p>AI & Robotics</p>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon"><i class="ph ph-chart-pie"></i></div>
+                    <div class="kpi-data">
+                        <h3 id="kpi-startup-mnc">--</h3>
+                        <p>Startup / MNC Ratio</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Strategic Industry Outlook -->
+            <section class="strategic-outlook module">
+                <div class="module-header">
+                    <h2><i class="ph ph-trend-up"></i> Strategic Industry Outlook 2026</h2>
+                </div>
+                <div class="outlook-grid">
+                    <div class="outlook-item">
+                        <h4>AI in Agriculture Growth</h4>
+                        <p>Explosive demand for ag-data scientists, ML engineers for crop modelling, and predictive yield analytics. Heavily recruiting from SWCE & AI domains.</p>
+                    </div>
+                    <div class="outlook-item">
+                        <h4>Robotics & Precision Farming</h4>
+                        <p>Shift from traditional mechanization to autonomous systems, swarm robotics, and computer vision-guided precision spraying. High demand for FMP + Embedded skills.</p>
+                    </div>
+                    <div class="outlook-item">
+                        <h4>Geospatial Intelligence (GIS)</h4>
+                        <p>Hyperspectral imaging and satellite data integration becoming standard for climate-smart farming. Crucial for SWCE students.</p>
+                    </div>
+                    <div class="outlook-item">
+                        <h4>Climate-Smart Engineering</h4>
+                        <p>Water conservation tech and zero-liquid discharge systems driving core SWCE and PFE recruitment.</p>
+                    </div>
+                    <div class="outlook-item">
+                        <h4>Renewable Energy Integration</h4>
+                        <p>Massive solar parks and agri-voltaics creating new avenues. High structural demand for core engineers across domains.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Top Strategic Outreach Companies -->
+            <section class="top-outreach module">
+                <div class="module-header">
+                    <h2><i class="ph ph-star"></i> Top Strategic Outreach Companies</h2>
+                    <p class="module-subtitle">High-priority targets aligned with 2026 industry trends</p>
+                </div>
+                <div class="outreach-grid" id="top-outreach-container">
+                    <!-- Dynamically populated -->
+                </div>
+            </section>
+
+            <!-- Emerging Agri-Tech & DeepTech Startups -->
+            <section class="emerging-startups module" style="border-color: var(--color-accent); background: linear-gradient(to right, #ffffff, #fffdfa);">
+                <div class="module-header">
+                    <h2><i class="ph ph-rocket"></i> Emerging Agri-Tech & DeepTech Startups</h2>
+                    <p class="module-subtitle">High-growth ventures defining the future of AI, Robotics, and Climate-Tech</p>
+                </div>
+                <div class="outreach-grid" id="emerging-startups-container">
+                    <!-- Dynamically populated -->
+                </div>
+            </section>
+        </div>
+
+        <!-- TAB: OPERATIONS -->
+        <div id="tab-operations" class="tab-pane">
+            
+            <!-- Operational KPIs -->
+            <section class="kpi-section" style="margin-bottom: 2rem;">
+                <div class="kpi-card op-kpi">
+                    <div class="kpi-data">
+                        <h3 id="op-contacted">0</h3>
+                        <p>Contacted</p>
+                    </div>
+                </div>
+                <div class="kpi-card op-kpi">
+                    <div class="kpi-data">
+                        <h3 id="op-interested">0</h3>
+                        <p>Interested</p>
+                    </div>
+                </div>
+                <div class="kpi-card op-kpi">
+                    <div class="kpi-data">
+                        <h3 id="op-ppt">0</h3>
+                        <p>PPT Scheduled</p>
+                    </div>
+                </div>
+                <div class="kpi-card op-kpi">
+                    <div class="kpi-data">
+                        <h3 id="op-confirmed">0</h3>
+                        <p>Confirmed Drives</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Operations Layout (Sidebar + Main) -->
+            <div class="ops-layout">
+                <div class="ops-sidebar">
+                    <div class="filter-module">
+                        <h3>Operations Filters</h3>
+                        <div class="filter-group">
+                            <div class="search-box">
+                                <i class="ph ph-magnifying-glass"></i>
+                                <input type="text" id="op-search-input" placeholder="Search companies...">
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <label>Outreach Status</label>
+                            <select id="op-filter-status">
+                                <option value="All">All Statuses</option>
+                                <option value="Not Contacted">Not Contacted</option>
+                                <option value="Outreach Pending">Outreach Pending</option>
+                                <option value="Contacted">Contacted</option>
+                                <option value="Follow-up Pending">Follow-up Pending</option>
+                                <option value="Response Received">Response Received</option>
+                                <option value="Interested">Interested</option>
+                                <option value="PPT Scheduled">PPT Scheduled</option>
+                                <option value="Drive Confirmed">Drive Confirmed</option>
+                                <option value="Closed">Closed</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Coordinator</label>
+                            <select id="op-filter-coordinator">
+                                <option value="All">All Coordinators</option>
+                                <option value="Unassigned">Unassigned</option>
+                                <option value="FMP Team">FMP Team</option>
+                                <option value="SWCE Team">SWCE Team</option>
+                                <option value="PFE Team">PFE Team</option>
+                                <option value="Core Committee">Core Committee</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="analytics-module">
+                        <h3>Status Distribution</h3>
+                        <div class="chart-container">
+                            <canvas id="opStatusChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ops-main">
+                    <div class="ops-header">
+                        <h2>Outreach Workflow</h2>
+                        <div class="view-toggles">
+                            <button class="btn btn-secondary active" id="view-kanban"><i class="ph ph-kanban"></i> Kanban</button>
+                            <button class="btn btn-secondary" id="view-list"><i class="ph ph-list"></i> List</button>
+                        </div>
+                    </div>
+
+                    <!-- KANBAN VIEW -->
+                    <div id="ops-kanban-view" class="kanban-board">
+                        <!-- Kanban Columns -->
+                        <div class="kanban-col" data-status="Not Contacted">
+                            <div class="k-col-header">Not Contacted (<span class="k-count">0</span>)</div>
+                            <div class="k-col-body"></div>
+                        </div>
+                        <div class="kanban-col" data-status="Outreach Pending">
+                            <div class="k-col-header">Pending (<span class="k-count">0</span>)</div>
+                            <div class="k-col-body"></div>
+                        </div>
+                        <div class="kanban-col" data-status="Contacted">
+                            <div class="k-col-header">Contacted (<span class="k-count">0</span>)</div>
+                            <div class="k-col-body"></div>
+                        </div>
+                        <div class="kanban-col" data-status="Follow-up Pending">
+                            <div class="k-col-header">Follow-up (<span class="k-count">0</span>)</div>
+                            <div class="k-col-body"></div>
+                        </div>
+                        <div class="kanban-col" data-status="Response Received">
+                            <div class="k-col-header">Response (<span class="k-count">0</span>)</div>
+                            <div class="k-col-body"></div>
+                        </div>
+                        <div class="kanban-col" data-status="Interested">
+                            <div class="k-col-header">Interested (<span class="k-count">0</span>)</div>
+                            <div class="k-col-body"></div>
+                        </div>
+                        <div class="kanban-col" data-status="PPT Scheduled">
+                            <div class="k-col-header">PPT (<span class="k-count">0</span>)</div>
+                            <div class="k-col-body"></div>
+                        </div>
+                        <div class="kanban-col" data-status="Drive Confirmed">
+                            <div class="k-col-header">Confirmed (<span class="k-count">0</span>)</div>
+                            <div class="k-col-body"></div>
+                        </div>
+                    </div>
+
+                    <!-- LIST VIEW -->
+                    <div id="ops-list-view" class="ops-list" style="display: none;">
+                        <!-- Actionable list items populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GLOBAL MAIN DASHBOARD CONTENT (Applies generally to Directory if needed, but we'll move Directory to Overview) -->
+        <div id="directory-section" class="dashboard-main" style="display: none;">
+            <!-- Directory moved inside overview or kept separate? Let's just put it below Strategic Outlook in Overview -->
+        </div>
+
+        <!-- Moved Main Directory inside Tab-Overview -->
+        <div id="tab-overview-directory" class="dashboard-main" style="margin-top: 2rem;">
+            <aside class="dashboard-sidebar">
+                <div class="filter-module">
+                    <h3>Directory Filters</h3>
+                    <div class="filter-group">
+                        <div class="search-box">
+                            <i class="ph ph-magnifying-glass"></i>
+                            <input type="text" id="search-input" placeholder="Name, Tag, Sector...">
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label>Industry Sector</label>
+                        <select id="filter-sector">
+                            <option value="All">All Sectors</option>
+                            <option value="Farm Power & Machinery">Farm Power & Machinery</option>
+                            <option value="AI in Agriculture">AI in Agriculture</option>
+                            <option value="Agri Robotics">Agri Robotics</option>
+                            <option value="Soil & Water Conservation">Soil & Water Conservation</option>
+                            <option value="Post Harvest Engineering">Post Harvest Engineering</option>
+                            <option value="Food Processing">Food Processing</option>
+                            <option value="Renewable Energy">Renewable Energy</option>
+                            <option value="Farm Power & Smart Mechanization">Farm Power & Smart Mechanization</option>
+                            <option value="Precision Agriculture & AI">Precision Agriculture & AI</option>
+                            <option value="Autonomous Farm Systems & Robotics">Autonomous Farm Systems & Robotics</option>
+                            <option value="GIS & Remote Sensing">GIS & Remote Sensing</option>
+                            <option value="Soil, Water & Climate-Tech">Soil, Water & Climate-Tech</option>
+                            <option value="Post-Harvest & Food-Tech">Post-Harvest & Food-Tech</option>
+                            <option value="Renewable Energy & Rural Infrastructure">Renewable Energy & Rural Infrastructure</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Placement Feasibility</label>
+                        <select id="filter-feasibility">
+                            <option value="All">All Levels</option>
+                            <option value="High">High (Direct Campus Potential)</option>
+                            <option value="Medium">Medium (Strong Lateral/Off-Campus)</option>
+                            <option value="Exploratory">Exploratory (Global/R&D focus)</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Company Type</label>
+                        <select id="filter-type">
+                            <option value="All">All Types</option>
+                            <option value="MNC">MNC</option>
+                            <option value="Startup">Startup</option>
+                            <option value="PSU">PSU</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <h3>Sector Distribution</h3>
+                    <div class="chart-container" style="position: relative; height:200px; width:100%">
+                        <canvas id="sectorChart"></canvas>
+                    </div>
+                    <div id="sector-legend" style="margin-top: 1.5rem; font-size: 0.8rem; max-height: 120px; overflow-y: auto; display: grid; grid-template-columns: 1fr; gap: 0.5rem; color: var(--color-text-muted);">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+                
+                <div class="analytics-module">
+                    <h3>Department Fit (Avg)</h3>
+                    <div class="chart-container">
+                        <canvas id="deptChart"></canvas>
+                    </div>
+                </div>
+            </aside>
+
+            <main class="directory-main">
+                <div class="directory-header">
+                    <h2><i class="ph ph-buildings"></i> Intelligence Directory</h2>
+                    <span id="results-count" class="results-count">Showing 0 companies</span>
+                </div>
+                <div class="company-grid" id="company-grid-container">
+                    <!-- Dynamically populated -->
+                </div>
+            </main>
+        </div>
+
+    </div>
+
+    <!-- MODALS -->
+    
+    <!-- Update Status Modal -->
+    <div id="modal-status" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Update Outreach Status</h3>
+                <button class="close-modal"><i class="ph ph-x"></i></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="modal-company-id">
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="modal-status-select">
+                        <option value="Not Contacted">Not Contacted</option>
+                        <option value="Outreach Pending">Outreach Pending</option>
+                        <option value="Contacted">Contacted</option>
+                        <option value="Follow-up Pending">Follow-up Pending</option>
+                        <option value="Response Received">Response Received</option>
+                        <option value="Interested">Interested</option>
+                        <option value="PPT Scheduled">PPT Scheduled</option>
+                        <option value="Drive Confirmed">Drive Confirmed</option>
+                        <option value="Closed">Closed</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Assigned Coordinator</label>
+                    <select id="modal-coord-select">
+                        <option value="Unassigned">Unassigned</option>
+                        <option value="FMP Team">FMP Team</option>
+                        <option value="SWCE Team">SWCE Team</option>
+                        <option value="PFE Team">PFE Team</option>
+                        <option value="Core Committee">Core Committee</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Log an action (optional)</label>
+                    <input type="text" id="modal-status-note" placeholder="e.g., Emailed HR team">
+                </div>
+                <button class="btn btn-primary" id="btn-save-status">Save Updates</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Note Modal -->
+    <div id="modal-note" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Log Activity / Note</h3>
+                <button class="close-modal"><i class="ph ph-x"></i></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="modal-note-company-id">
+                <div class="form-group">
+                    <label>Activity Detail</label>
+                    <textarea id="modal-note-text" rows="4" placeholder="Enter details of the communication..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Next Follow-up Date (optional)</label>
+                    <input type="date" id="modal-note-date">
+                </div>
+                <button class="btn btn-primary" id="btn-save-note">Log Activity</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Timeline Modal -->
+    <div id="modal-timeline" class="modal-overlay">
+        <div class="modal modal-large">
+            <div class="modal-header">
+                <h3 id="timeline-company-name">Company Timeline</h3>
+                <button class="close-modal"><i class="ph ph-x"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="timeline-container" id="timeline-list">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide-Over Onboarding Panel -->
+    <div id="slide-panel-overlay" class="modal-overlay"></div>
+    <div id="slide-panel-onboarding" class="slide-panel">
+        <div class="slide-header">
+            <h2 id="slide-title">Add New Company / Startup</h2>
+            <button class="close-slide"><i class="ph ph-x"></i></button>
+        </div>
+        <div class="slide-body">
+            <form id="onboarding-form">
+                <input type="hidden" id="form-edit-id">
+                
+                <div class="form-section">
+                    <h4>1. Basic Company Details</h4>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Company Name *</label>
+                            <input type="text" id="form-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Company Type *</label>
+                            <select id="form-type" required>
+                                <option value="Startup">Startup</option>
+                                <option value="MNC">MNC</option>
+                                <option value="SME">SME</option>
+                                <option value="PSU">PSU</option>
+                                <option value="Research Organization">Research Organization</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Sector / Domain *</label>
+                            <select id="form-sector" required>
+                                <option value="Farm Power & Machinery">Farm Power & Machinery</option>
+                                <option value="AI in Agriculture">AI in Agriculture</option>
+                                <option value="Agri Robotics">Agri Robotics</option>
+                                <option value="Soil & Water Conservation">Soil & Water Conservation</option>
+                                <option value="Post Harvest Engineering">Post Harvest Engineering</option>
+                                <option value="Food Processing">Food Processing</option>
+                                <option value="Renewable Energy">Renewable Energy</option>
+                                <option value="Farm Power & Smart Mechanization">Farm Power & Smart Mechanization</option>
+                                <option value="Precision Agriculture & AI">Precision Agriculture & AI</option>
+                                <option value="Autonomous Farm Systems & Robotics">Autonomous Farm Systems & Robotics</option>
+                                <option value="GIS & Remote Sensing">GIS & Remote Sensing</option>
+                                <option value="Soil, Water & Climate-Tech">Soil, Water & Climate-Tech</option>
+                                <option value="Post-Harvest & Food-Tech">Post-Harvest & Food-Tech</option>
+                                <option value="Renewable Energy & Rural Infrastructure">Renewable Energy & Rural Infrastructure</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Headquarters</label>
+                            <input type="text" id="form-hq">
+                        </div>
+                        <div class="form-group">
+                            <label>India Office Locations (comma separated)</label>
+                            <input type="text" id="form-india-offices">
+                        </div>
+                        <div class="form-group">
+                            <label>Career Page URL</label>
+                            <input type="url" id="form-careers-link">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h4>2. Placement Relevance</h4>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Feasibility Level</label>
+                            <select id="form-feasibility">
+                                <option value="High">High</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Exploratory">Exploratory</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Strategic Priority</label>
+                            <select id="form-priority">
+                                <option value="Tier 1">Tier 1</option>
+                                <option value="Tier 2">Tier 2</option>
+                                <option value="Tier 3">Tier 3</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="grid-column: 1/-1;">
+                            <label>Outreach Score (1-10): <span id="score-val">8.0</span></label>
+                            <input type="range" id="form-score" min="1" max="10" step="0.1" value="8" style="width:100%;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h4>3. Recruiter Outreach Details</h4>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Coordinator Assigned</label>
+                            <select id="form-coordinator">
+                                <option value="Unassigned">Unassigned</option>
+                                <option value="FMP Team">FMP Team</option>
+                                <option value="SWCE Team">SWCE Team</option>
+                                <option value="PFE Team">PFE Team</option>
+                                <option value="Core Committee">Core Committee</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Outreach Status</label>
+                            <select id="form-status">
+                                <option value="Not Contacted">Not Contacted</option>
+                                <option value="Outreach Pending">Outreach Pending</option>
+                                <option value="Contacted">Contacted</option>
+                                <option value="Follow-up Pending">Follow-up Pending</option>
+                                <option value="Response Received">Response Received</option>
+                                <option value="Interested">Interested</option>
+                                <option value="PPT Scheduled">PPT Scheduled</option>
+                                <option value="Drive Confirmed">Drive Confirmed</option>
+                                <option value="Closed">Closed</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h4>4. Company Insights</h4>
+                    <div class="form-group">
+                        <label>Company Description</label>
+                        <textarea id="form-description" rows="3"></textarea>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Sector Growth</label>
+                            <select id="form-growth">
+                                <option value="Stable">Stable</option>
+                                <option value="Strong">Strong</option>
+                                <option value="Very Strong">Very Strong</option>
+                                <option value="Explosive">Explosive</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Freshers Hiring Potential</label>
+                            <select id="form-hiring">
+                                <option value="High">High</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Selective">Selective</option>
+                                <option value="Low">Low</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Tags (comma separated)</label>
+                        <input type="text" id="form-tags" placeholder="e.g. DeepTech, Robotics, Agri AI">
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="slide-footer">
+            <button class="btn btn-secondary close-slide">Cancel</button>
+            <button class="btn btn-primary" id="btn-save-company">Save Company</button>
+        </div>
+    </div>
+    
+    <!-- Delete Confirmation Modal -->
+    <div id="modal-delete" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Archive Company</h3>
+                <button class="close-modal"><i class="ph ph-x"></i></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to remove <b id="delete-company-name"></b> from the operations dashboard?</p>
+                <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-top: 0.5rem;">This will hide the company and all its outreach history from the active pipeline.</p>
+                <input type="hidden" id="delete-company-id">
+                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                    <button class="btn btn-secondary close-modal" style="flex:1;">Cancel</button>
+                    <button class="btn btn-primary" id="btn-confirm-delete" style="flex:1; background-color: #dc2626; color: white;">Archive</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
