@@ -366,6 +366,35 @@ function updateOverviewCharts(data) {
             </div>
         `).join('');
     }
+
+    // Dept Fit Chart
+    const deptTotals = { FMP: 0, SWCE: 0, PFE: 0, AI: 0 };
+    if (data.length > 0) {
+        data.forEach(c => {
+            if (c.departmentFit) {
+                deptTotals.FMP += c.departmentFit.FMP || 0;
+                deptTotals.SWCE += c.departmentFit.SWCE || 0;
+                deptTotals.PFE += c.departmentFit.PFE || 0;
+                deptTotals.AI += c.departmentFit.AI || 0;
+            }
+        });
+        Object.keys(deptTotals).forEach(k => deptTotals[k] = Math.round(deptTotals[k] / data.length));
+    }
+    
+    if (deptChartInstance) deptChartInstance.destroy();
+    deptChartInstance = new Chart(document.getElementById('deptChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: Object.keys(deptTotals),
+            datasets: [{
+                label: 'Avg Relevance Score',
+                data: Object.values(deptTotals),
+                backgroundColor: '#2A6650',
+                borderRadius: 4
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, max: 100 } }, plugins: { legend: { display: false } } }
+    });
 }
 
 // ---- OPERATIONS ----
