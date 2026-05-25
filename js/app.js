@@ -299,6 +299,19 @@ function renderGrid(data) {
                 </div>
             </div>
             
+            <div class="card-departments">
+                <h4>Department Relevance Score</h4>
+                <div class="dept-bars">
+                    ${company.departmentFit ? Object.entries(company.departmentFit).map(([dept, score]) => `
+                        <div class="dept-bar">
+                            <span class="dept-label">${dept}</span>
+                            <div class="dept-track"><div class="dept-fill" style="width: ${score}%"></div></div>
+                            <span class="dept-value">${score}</span>
+                        </div>
+                    `).join('') : '<div style="color:var(--color-text-muted); font-size: 0.8rem;">No relevance data available.</div>'}
+                </div>
+            </div>
+
             <div class="card-footer" style="margin-top: 1rem;">
                 <a href="${company.careersLink || '#'}" target="_blank" class="careers-link" style="color: var(--color-primary); font-weight: 600; text-decoration: none; font-size: 0.85rem;"><i class="ph ph-link"></i> Official Careers Page</a>
             </div>
